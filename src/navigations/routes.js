@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Headlines from "../screens/Headlines";
 import MyTabs from "./tab-container";
+import Login from "../screens/Login";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ function Routes() {
             component={MyTabs}
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Articles" component={Headlines} />
         </Stack.Navigator>
       </NavigationContainer>

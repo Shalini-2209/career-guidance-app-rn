@@ -9,8 +9,9 @@ const Tab = createBottomTabNavigator();
 export default function MyTabs() {
   return (
     <Tab.Navigator>
+      <Tab.Screen name="My Bookings" component={Login} />
       <Tab.Screen name="Articles" component={Headlines} />
-      <Tab.Screen name="Login" component={Login} />
+
       <Tab.Screen name="Register" component={Register} />
     </Tab.Navigator>
   );
