@@ -1,15 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { NEWS_API_KEY } from "../../config";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Headlines() {
   const [articles, setArticles] = new useState([]);
+  let API = NEWS_API_KEY;
   useEffect(() => {
-    async function getUser() {
+    async function getArticles() {
       try {
         const response = await axios.get(
-          "https://newsapi.org/v2/everything?q=tesla&from=2021-10-08&sortBy=publishedAt&apiKey=bec3b5d40ea2429391097e1f339ea49b"
+          `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${API}`
         );
         setArticles(response);
       } catch (error) {
@@ -17,8 +19,10 @@ export default function Headlines() {
       }
     }
 
-    getUser();
+    getArticles();
   }, []);
+
+  console.log({ articles });
 
   return (
     <View style={styles.container}>
