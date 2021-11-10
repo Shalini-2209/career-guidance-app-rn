@@ -49,7 +49,6 @@ const Videos = () => {
             }}
             style={{ marginVertical: 3, height: 200 }}
             key={index}
-            injectedJavaScript="window.ReactNativeWebView.postMessage(Math.max(document.body.offsetHeight, document.body.scrollHeight));"
           />
         );
       })}
