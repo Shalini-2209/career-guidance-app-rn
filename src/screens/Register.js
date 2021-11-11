@@ -1,5 +1,11 @@
 import { View, StyleSheet, Text } from "react-native";
-import { TextInput, Card, Button, Title } from "react-native-paper";
+import {
+  TextInput,
+  Card,
+  Button,
+  Title,
+  RadioButton,
+} from "react-native-paper";
 import { basic, dark } from "../default/colors";
 import Alert from "../components/Alert";
 import database from "../storage/firebase";
@@ -13,14 +19,62 @@ const Login = () => {
     contact: "",
   };
 
+  const [user, setUser] = useState(true);
+
+  // User form for registration
   const [form, setForm] = useState(initalState);
   const [alert, setAlert] = useState("");
+
+  // Coach form for registration
+
+  const initialValue = {
+    mail: "",
+    pwd: "",
+    contact: "",
+    degree: "selected",
+    slots: 1,
+  };
+
+  // cdata === coach data
+  const [cdata, setCdata] = useState(initialValue);
 
   useEffect(() => {
     <Alert alert={alert} setAlert={setAlert} />;
   }, [alert]);
 
-  const handleRegister = () => {
+  const handleChange = (value, attribute) => {
+    if (user) {
+      setForm({ ...form, [attribute]: value });
+    } else {
+      setCdata({ ...cdata, [attribute]: value });
+    }
+  };
+
+  const registerCoach = () => {
+    if (cdata.mail === "" || cdata.contact === "" || cdata.pwd === "")
+      setAlert("Fields are empty!");
+    else if (cdata.pwd.length < 5) setAlert("Password length mismatched!");
+    else if (cdata.contact.length < 10) setAlert("Contact length mismatched!");
+    else if (cdata.degree == "rejected") {
+      setAlert("Not eligible!");
+      setUser(true);
+    } else {
+      let data = cdata.mail.split("@");
+      let coachId = data[0];
+      const db = getDatabase();
+
+      set(ref(db, "coaches/" + coachId), {
+        pwd: cdata.pwd,
+        contact: cdata.contact,
+        eligible: true,
+      });
+
+      setCdata(initialValue);
+      setAlert("Congrats on joining!");
+    }
+  };
+
+  const registerUser = () => {
     if (form.mail === "" || form.contact === "" || form.pwd === "")
       setAlert("Fields are empty!");
     else if (form.pwd.length < 5) setAlert("Password length mismatched!");
@@ -39,6 +93,11 @@ const Login = () => {
     }
   };
 
+  const handleRegister = () => {
+    if (user) registerUser();
+    else registerCoach();
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -52,25 +111,27 @@ const Login = () => {
                 color: basic,
                 marginVertical: 10,
                 textTransform: "uppercase",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
-              Create Account
+              {user ? "Create an user account" : "Join as a coach"}
             </Title>
 
             <TextInput
               mode="outlined"
-              value={form.mail}
+              value={user ? form.mail : cdata.mail}
               label="Email address"
               placeholder="Enter email"
               // style={{ marginBottom: 10 }}
               outlineColor={basic}
               activeOutlineColor={dark}
-              onChangeText={(text) => setForm({ ...form, mail: text })}
+              onChangeText={(text) => handleChange(text, "mail")}
             />
 
             <TextInput
               mode="outlined"
-              value={form.contact}
+              value={user ? form.contact : cdata.contact}
               label="Contact"
               placeholder="Enter contact number"
               // style={{ marginBottom: 10 }}
@@ -79,23 +140,55 @@ const Login = () => {
               keyboardType="numeric"
               maxLength={10}
               right={<TextInput.Affix text="/10" />}
-              onChangeText={(num) => setForm({ ...form, contact: num })}
+              onChangeText={(num) => handleChange(num, "contact")}
             />
 
             <TextInput
               mode="outlined"
-              value={form.pwd}
+              value={user ? form.pwd : cdata.pwd}
               label="Password"
               secureTextEntry
               placeholder="Enter secret code"
               outlineColor={basic}
               activeOutlineColor={dark}
-              onChangeText={(text) => setForm({ ...form, pwd: text })}
+              onChangeText={(text) => handleChange(text, "pwd")}
             />
-            <Text style={{ fontWeight: "bold", color: "red" }}>
+            <Text style={{ fontWeight: "bold", color: "red", marginBottom: 2 }}>
               Enter aleast 5 characters
             </Text>
 
+            {!user && (
+              <>
+                <TextInput
+                  mode="outlined"
+                  value={cdata.slots}
+                  label="Slots"
+                  placeholder="Available slots"
+                  // style={{ marginBottom: 10 }}
+                  outlineColor={basic}
+                  activeOutlineColor={dark}
+                  keyboardType="numeric"
+                  onChangeText={(num) => handleChange(num, "slots")}
+                />
+                <RadioButton.Group
+                  onValueChange={(value) =>
+                    setCdata({ ...cdata, degree: value })
+                  }
+                  value={cdata.degree}
+                >
+                  <RadioButton.Item
+                    label="Degree in counselling"
+                    value="selected"
+                    color={dark}
+                  />
+                  <RadioButton.Item
+                    label="Degree in others"
+                    color={dark}
+                    value="rejected"
+                  />
+                </RadioButton.Group>
+              </>
+            )}
             <Button
               icon="import"
               mode="contained"
@@ -106,15 +199,21 @@ const Login = () => {
               Register !
             </Button>
 
-            {/* <Text style={{ marginVertical: 10 }}>
-            Already a user,{" "}
-            <Text
-              style={{ fontWeight: "bold", color: "red" }}
-              onPress={() => navigation.navigate("Login")}
-            >
-              Sign in
-            </Text>
-          </Text> */}
+            {user && (
+              <Text style={{ marginVertical: 10 }}>
+                Sign up as a{" "}
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    color: "#EA2027",
+                    textTransform: "uppercase",
+                  }}
+                  onPress={() => setUser(!user)}
+                >
+                  Coach !
+                </Text>
+              </Text>
+            )}
           </Card>
         )}
       </View>
