@@ -26,9 +26,10 @@ const Login = () => {
     else if (form.pwd.length < 5) setAlert("Password length mismatched!");
     else if (form.contact.length < 10) setAlert("Contact length mismatched!");
     else {
+      let uid = form.mail.split("@");
       const db = getDatabase();
 
-      set(ref(db, "users/" + form.mail), {
+      set(ref(db, "users/" + uid[0]), {
         pwd: form.pwd,
         contact: form.contact,
       });
