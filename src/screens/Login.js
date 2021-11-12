@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import { TextInput, Card, Button, Title } from "react-native-paper";
+import { TextInput, Card, Button, Title, Switch } from "react-native-paper";
 import { basic, dark } from "../default/colors";
 import React, { useState, useEffect } from "react";
 import Alert from "../components/Alert";
@@ -13,6 +13,7 @@ const Login = ({ navigation }) => {
 
   const [form, setForm] = useState(initalState);
   const [alert, setAlert] = useState("");
+  const [coach, setCoach] = useState(false);
 
   useEffect(() => {
     <Alert alert={alert} setAlert={setAlert} />;
@@ -24,17 +25,31 @@ const Login = ({ navigation }) => {
       let details = form.mail.split("@");
       let userId = details[0];
 
-      onValue(
-        ref(db, "/users/" + userId),
-        (snapshot) => {
-          if (form.pwd === snapshot.val().pwd) {
-            setAlert("Logged in successfully..");
+      if (coach) {
+        onValue(
+          ref(db, "/coaches/" + userId),
+          (snapshot) => {
+            if (form.pwd === snapshot.val().pwd) {
+              setAlert("Logged in as coach..");
+            }
+          },
+          {
+            onlyOnce: true,
           }
-        },
-        {
-          onlyOnce: true,
-        }
-      );
+        );
+      } else {
+        onValue(
+          ref(db, "/users/" + userId),
+          (snapshot) => {
+            if (form.pwd === snapshot.val().pwd) {
+              setAlert("Logged in successfully..");
+            }
+          },
+          {
+            onlyOnce: true,
+          }
+        );
+      }
     } else setAlert("Missing Fields!");
   };
 
@@ -51,6 +66,8 @@ const Login = ({ navigation }) => {
                 color: basic,
                 marginVertical: 10,
                 textTransform: "uppercase",
+                fontWeight: "bold",
+                fontSize: 20,
               }}
             >
               Sign in to continue..
@@ -76,6 +93,24 @@ const Login = ({ navigation }) => {
               activeOutlineColor={dark}
               onChangeText={(code) => setForm({ ...form, pwd: code })}
             />
+            <View style={{ flexDirection: "row", marginVertical: 10 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: basic,
+                  marginRight: 25,
+                  fontWeight: "bold",
+                }}
+              >
+                Counsellor
+              </Text>
+              <Switch
+                value={coach}
+                onValueChange={() => setCoach(!coach)}
+                color="#1289A7"
+                style={{ alignSelf: "flex-end" }}
+              />
+            </View>
 
             <Button
               icon="import"
