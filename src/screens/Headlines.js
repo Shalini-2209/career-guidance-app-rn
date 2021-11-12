@@ -1,8 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NEWS_API_KEY } from "../../config";
-import { StyleSheet, Text, View } from "react-native";
+import { dark } from "../default/colors";
+import { StyleSheet, ScrollView, Linking } from "react-native";
+import { Avatar, Card, Paragraph } from "react-native-paper";
 
 export default function Headlines() {
   const [articles, setArticles] = new useState([]);
@@ -13,7 +14,7 @@ export default function Headlines() {
         const response = await axios.get(
           `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${API}`
         );
-        setArticles(response);
+        setArticles(response.data.articles);
       } catch (error) {
         console.error(error);
       }
@@ -21,22 +22,57 @@ export default function Headlines() {
 
     getArticles();
   }, []);
+  const LeftContent = (props) => (
+    <Avatar.Icon
+      {...props}
+      icon="newspaper-variant"
+      style={{ backgroundColor: dark }}
+    />
+  );
 
-  console.log({ articles });
+  const readMore = async (url) => {
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ScrollView style={styles.container}>
+      {articles.map((item, index) => {
+        return (
+          <Card
+            key={index}
+            mode="elevated"
+            onPress={() => readMore(item.url)}
+            style={styles.card}
+          >
+            <Card.Title
+              title={item.title}
+              subtitle={item.author}
+              left={LeftContent}
+            />
+            <Card.Content>
+              <Paragraph>{item.content}</Paragraph>
+            </Card.Content>
+            <Card.Cover source={{ uri: `${item.urlToImage}` }} />
+          </Card>
+        );
+      })}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+
+  card: {
+    marginVertical: 3,
   },
 });
