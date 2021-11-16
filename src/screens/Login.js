@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TextInput, Card, Button, Title, Switch } from "react-native-paper";
 import { basic, dark } from "../default/colors";
 import React, { useState, useEffect } from "react";
