@@ -1,11 +1,12 @@
 import { View, StyleSheet, Text } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { TextInput, Card, Button, Title, Switch } from "react-native-paper";
 import { basic, dark } from "../default/colors";
 import React, { useState, useEffect } from "react";
 import Alert from "../components/Alert";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, checkUser }) => {
   const initalState = {
     mail: "",
     pwd: "",
@@ -19,6 +20,10 @@ const Login = ({ navigation }) => {
     <Alert alert={alert} setAlert={setAlert} />;
   }, [alert]);
 
+  const storeUser = async (key) => {
+    await AsyncStorage.setItem(key, form.mail);
+  };
+
   const handleLogin = () => {
     if (form.mail !== "" && form.pwd !== "") {
       const db = getDatabase();
@@ -30,6 +35,7 @@ const Login = ({ navigation }) => {
           ref(db, "/coaches/" + userId),
           (snapshot) => {
             if (form.pwd === snapshot.val().pwd) {
+              storeUser("coach");
               setAlert("Logged in as coach..");
             }
           },
@@ -42,8 +48,10 @@ const Login = ({ navigation }) => {
           ref(db, "/users/" + userId),
           (snapshot) => {
             if (form.pwd === snapshot.val().pwd) {
-              setAlert("Logged in successfully..");
-            }
+              storeUser("user");
+              checkUser();
+              // setAlert("Logged in successfully..");
+            } else setAlert("Invalid credentials..");
           },
           {
             onlyOnce: true,
