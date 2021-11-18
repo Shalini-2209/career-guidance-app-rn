@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Headlines from "../screens/Headlines";
+import Headlines from "../screens/user/Headlines";
 import MyTabs from "./tab-container";
 import Register from "../screens/Register";
 import Login from "../screens/Login";
+import Profile from "../screens/coach/Profile";
 
 const Stack = createNativeStackNavigator();
 
 function Routes() {
   const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const LoginWithProps = ({ navigation }) => (
     <Login navigation={navigation} checkUser={checkUser} />
   );
 
   const MyTabsWithProps = () => {
-    return <MyTabs role={role} />;
+    return <MyTabs role={role} checkUser={checkUser} />;
+  };
+
+  const Loading = () => {
+    return <ActivityIndicator animating={true} color="#1e3799" />;
   };
 
   const checkUser = async () => {
@@ -27,7 +34,8 @@ function Routes() {
     if (coach) {
       setRole("coach");
     } else if (user) setRole("user");
-    // else setRole("");
+    else setRole("");
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -36,24 +44,29 @@ function Routes() {
 
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {/* Call modules with the name specified in Stack.Screen */}
-          {!role && (
-            <>
-              <Stack.Screen name="Login" component={LoginWithProps} />
-              <Stack.Screen name="Register" component={Register} />
-            </>
-          )}
+      {!loading ? (
+        <NavigationContainer>
+          <Stack.Navigator>
+            {/* Call modules with the name specified in Stack.Screen */}
+            {!role && (
+              <>
+                <Stack.Screen name="Login" component={LoginWithProps} />
+                <Stack.Screen name="Register" component={Register} />
+              </>
+            )}
 
-          <Stack.Screen
-            name="Tabs"
-            component={MyTabsWithProps}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Articles" component={Headlines} />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="Tabs"
+              component={MyTabsWithProps}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Articles" component={Headlines} />
+            <Stack.Screen name="Profile" component={Profile} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }
