@@ -5,6 +5,7 @@ import { basic, dark } from "../default/colors";
 import React, { useState, useEffect } from "react";
 import Alert from "../components/Alert";
 import { getDatabase, ref, onValue } from "firebase/database";
+import database from "../storage/firebase";
 
 const Login = ({ navigation, checkUser }) => {
   const initalState = {
@@ -20,8 +21,8 @@ const Login = ({ navigation, checkUser }) => {
     <Alert alert={alert} setAlert={setAlert} />;
   }, [alert]);
 
-  const storeUser = async (key) => {
-    await AsyncStorage.setItem(key, form.mail);
+  const storeUser = async (key, val) => {
+    await AsyncStorage.setItem(key, val);
   };
 
   const handleLogin = () => {
@@ -35,8 +36,9 @@ const Login = ({ navigation, checkUser }) => {
           ref(db, "/coaches/" + userId),
           (snapshot) => {
             if (form.pwd === snapshot.val().pwd) {
-              storeUser("coach");
-              setAlert("Logged in as coach..");
+              storeUser("coach", userId);
+              checkUser();
+              // setAlert("Logged in as coach..");
             }
           },
           {
@@ -48,7 +50,7 @@ const Login = ({ navigation, checkUser }) => {
           ref(db, "/users/" + userId),
           (snapshot) => {
             if (form.pwd === snapshot.val().pwd) {
-              storeUser("user");
+              storeUser("user", userId);
               checkUser();
               // setAlert("Logged in successfully..");
             } else setAlert("Invalid credentials..");
@@ -99,6 +101,7 @@ const Login = ({ navigation, checkUser }) => {
               placeholder="Enter secret code"
               outlineColor={basic}
               activeOutlineColor={dark}
+              secureTextEntry
               onChangeText={(code) => setForm({ ...form, pwd: code })}
             />
             <View style={{ flexDirection: "row", marginVertical: 10 }}>

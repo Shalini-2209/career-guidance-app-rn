@@ -8,11 +8,10 @@ import {
 } from "react-native-paper";
 import { basic, dark } from "../default/colors";
 import Alert from "../components/Alert";
-import database from "../storage/firebase";
 import { getDatabase, ref, set } from "firebase/database";
 import React, { useState, useEffect } from "react";
 
-const Login = () => {
+const Register = () => {
   const initalState = {
     mail: "",
     pwd: "",
@@ -64,9 +63,11 @@ const Login = () => {
       const db = getDatabase();
 
       set(ref(db, "coaches/" + coachId), {
+        cname: coachId,
         pwd: cdata.pwd,
         contact: cdata.contact,
         eligible: true,
+        slots: 1,
       });
 
       setCdata(initialValue);
@@ -84,6 +85,7 @@ const Login = () => {
       const db = getDatabase();
 
       set(ref(db, "users/" + uid[0]), {
+        uname: uid[0],
         pwd: form.pwd,
         contact: form.contact,
       });
@@ -233,4 +235,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
