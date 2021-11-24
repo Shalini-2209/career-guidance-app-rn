@@ -49,11 +49,13 @@ const Login = ({ navigation, checkUser }) => {
         onValue(
           ref(db, "/users/" + userId),
           (snapshot) => {
-            if (form.pwd === snapshot.val().pwd) {
-              storeUser("user", userId);
-              checkUser();
-              // setAlert("Logged in successfully..");
-            } else setAlert("Invalid credentials..");
+            if (snapshot.exists()) {
+              if (form.pwd === snapshot.val().pwd) {
+                storeUser("user", userId);
+                checkUser();
+                // setAlert("Logged in successfully..");
+              } else setAlert("Invalid credentials..");
+            } else setAlert("User not found");
           },
           {
             onlyOnce: true,

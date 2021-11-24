@@ -64,6 +64,7 @@ const Register = () => {
 
       set(ref(db, "coaches/" + coachId), {
         cname: coachId,
+        email: cdata.mail,
         pwd: cdata.pwd,
         contact: cdata.contact,
         eligible: true,
@@ -86,6 +87,7 @@ const Register = () => {
 
       set(ref(db, "users/" + uid[0]), {
         uname: uid[0],
+        email: form.mail,
         pwd: form.pwd,
         contact: form.contact,
       });
