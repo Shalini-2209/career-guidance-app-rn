@@ -120,7 +120,7 @@ const Profile = ({ checkUser }) => {
                 icon="account-arrow-right-outline"
                 mode="contained"
                 style={{ marginTop: 20, padding: "2%" }}
-                color="#40407a"
+                color="#c0392b"
                 onPress={handleLogout}
               >
                 Log out!
