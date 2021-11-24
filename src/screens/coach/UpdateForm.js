@@ -42,6 +42,7 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
         mode="outlined"
         outlineColor={basic}
         activeOutlineColor={dark}
+        keyboardType="numeric"
         onChangeText={(text) => setDetails({ ...details, contact: text })}
       />
 
@@ -55,10 +56,11 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
       />
 
       <TextInput
-        label="Experience"
+        label="Experience in years"
         value={details.experience}
         mode="outlined"
         outlineColor={basic}
+        keyboardType="numeric"
         activeOutlineColor={dark}
         onChangeText={(text) => setDetails({ ...details, experience: text })}
       />
