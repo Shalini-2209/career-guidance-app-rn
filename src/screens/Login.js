@@ -8,7 +8,7 @@ import {
   Switch,
   useTheme,
 } from "react-native-paper";
-import { basic, dark, bgcolor } from "../default/colors";
+import { basic, dark } from "../default/colors";
 import React, { useState, useEffect } from "react";
 import Alert from "../components/Alert";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -39,6 +39,7 @@ const Login = ({ navigation, checkUser }) => {
       const db = getDatabase();
       let details = form.mail.split("@");
       let userId = details[0];
+      console.log(userId);
 
       if (coach) {
         onValue(
@@ -165,7 +166,7 @@ const Login = ({ navigation, checkUser }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: bgcolor,
+    // backgroundColor: bgcolor,
     // borderColor: "white", "white",
     padding: 30,
     // alignItems: "center",

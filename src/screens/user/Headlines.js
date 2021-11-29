@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NEWS_API_KEY } from "../../../config";
-import { dark } from "../../default/colors";
+import { basic } from "../../default/colors";
 import { StyleSheet, ScrollView, Linking } from "react-native";
 import { Avatar, Card, Paragraph } from "react-native-paper";
 
@@ -26,7 +26,7 @@ export default function Headlines() {
     <Avatar.Icon
       {...props}
       icon="newspaper-variant"
-      style={{ backgroundColor: dark }}
+      style={{ backgroundColor: basic }}
     />
   );
 

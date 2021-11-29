@@ -7,7 +7,7 @@ import {
   RadioButton,
   useTheme,
 } from "react-native-paper";
-import { basic, bgcolor, dark } from "../default/colors";
+import { basic, dark } from "../default/colors";
 import Alert from "../components/Alert";
 import { getDatabase, ref, set } from "firebase/database";
 import React, { useState, useEffect } from "react";
@@ -231,7 +231,6 @@ const Register = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: bgcolor,
     padding: 30,
     // alignItems: "center",
     justifyContent: "center",

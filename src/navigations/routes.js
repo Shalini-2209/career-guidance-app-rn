@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
+import Loading from "../components/Loading";
 import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -25,10 +25,6 @@ function Routes() {
 
   const MyTabsWithProps = () => {
     return <MyTabs role={role} checkUser={checkUser} />;
-  };
-
-  const Loading = () => {
-    return <ActivityIndicator animating={true} color="#1e3799" />;
   };
 
   const checkUser = async () => {

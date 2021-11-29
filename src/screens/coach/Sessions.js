@@ -87,7 +87,7 @@ const Sessions = () => {
     });
   };
   return (
-    <ScrollView style={{ flexGrow: 1, backgroundColor: "white" }}>
+    <ScrollView style={{ flexGrow: 1 }}>
       {bookings.length ? (
         Object.keys(bookings).map((elt) => {
           return (

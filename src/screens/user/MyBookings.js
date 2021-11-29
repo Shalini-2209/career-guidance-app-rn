@@ -1,5 +1,5 @@
-import { ScrollView } from "react-native";
-import { List, Button } from "react-native-paper";
+import { ScrollView, Text } from "react-native";
+import { List, Button, Drawer } from "react-native-paper";
 import { onValue } from "firebase/database";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const MyBookings = ({ checkUser }) => {
   // booked sessions
   const [bookings, setBookings] = useState([]);
+  const [active, setActive] = React.useState("");
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("user");
@@ -26,27 +27,43 @@ const MyBookings = ({ checkUser }) => {
   }, []);
 
   return (
-    <ScrollView style={{ flexGrow: 1, backgroundColor: "white" }}>
-      {Object.keys(bookings).map((elt) => {
-        return (
-          <List.Item
-            key={bookings[elt].name}
-            title={"Meet your career counsellor " + bookings[elt].name}
-            description={"Booking time: " + bookings[elt].date}
-            left={(props) => (
-              <List.Icon
-                {...props}
-                icon="account-circle"
-                style={{
-                  backgroundColor: dark,
-                  borderRadius: "50%",
-                }}
-                color="white"
-              />
-            )}
-          />
-        );
-      })}
+    <ScrollView style={{ flexGrow: 1 }}>
+      <Drawer.Section title="Some title">
+        <Drawer.Item
+          label="First Item"
+          active={active === "first"}
+          onPress={() => setActive("first")}
+        />
+        <Drawer.Item
+          label="Second Item"
+          active={active === "second"}
+          onPress={() => setActive("second")}
+        />
+      </Drawer.Section>
+      {bookings ? (
+        Object.keys(bookings).map((elt) => {
+          return (
+            <List.Item
+              key={bookings[elt].name}
+              title={"Meet your career counsellor " + bookings[elt].name}
+              description={"Booking time: " + bookings[elt].date}
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="account-circle"
+                  style={{
+                    backgroundColor: dark,
+                    borderRadius: "50%",
+                  }}
+                  color="white"
+                />
+              )}
+            />
+          );
+        })
+      ) : (
+        <Text style={{ color: "white" }}>Zero bookings encountered:)</Text>
+      )}
       <Button
         icon="account-arrow-right-outline"
         mode="contained"
