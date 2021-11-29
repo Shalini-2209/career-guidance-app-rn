@@ -5,8 +5,9 @@ import {
   Button,
   Title,
   RadioButton,
+  useTheme,
 } from "react-native-paper";
-import { basic, dark } from "../default/colors";
+import { basic, bgcolor, dark } from "../default/colors";
 import Alert from "../components/Alert";
 import { getDatabase, ref, set } from "firebase/database";
 import React, { useState, useEffect } from "react";
@@ -36,6 +37,8 @@ const Register = () => {
 
   // cdata === coach data
   const [cdata, setCdata] = useState(initialValue);
+
+  const { colors } = useTheme();
 
   useEffect(() => {
     <Alert alert={alert} setAlert={setAlert} />;
@@ -204,8 +207,8 @@ const Register = () => {
             </Button>
 
             {user && (
-              <Text style={{ marginVertical: 10 }}>
-                Sign up as a{" "}
+              <Text style={{ marginVertical: 10, color: colors.text }}>
+                Sign up as{" "}
                 <Text
                   style={{
                     fontWeight: "bold",
@@ -228,7 +231,7 @@ const Register = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: bgcolor,
     padding: 30,
     // alignItems: "center",
     justifyContent: "center",

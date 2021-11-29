@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native-paper";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  ActivityIndicator,
+  DarkTheme as PaperDarkTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Headlines from "../screens/user/Headlines";
@@ -43,9 +47,9 @@ function Routes() {
   }, []);
 
   return (
-    <>
+    <PaperProvider theme={PaperDarkTheme}>
       {!loading ? (
-        <NavigationContainer>
+        <NavigationContainer theme={DarkTheme}>
           <Stack.Navigator>
             {/* Call modules with the name specified in Stack.Screen */}
             {!role && (
@@ -67,7 +71,7 @@ function Routes() {
       ) : (
         <Loading />
       )}
-    </>
+    </PaperProvider>
   );
 }
 

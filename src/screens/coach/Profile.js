@@ -38,7 +38,6 @@ const Profile = ({ checkUser }) => {
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
-            backgroundColor: "#ffff",
           }}
         >
           <ImageBackground

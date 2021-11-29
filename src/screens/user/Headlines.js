@@ -69,7 +69,6 @@ export default function Headlines() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: "white",
   },
 
   card: {

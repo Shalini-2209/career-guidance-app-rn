@@ -1,7 +1,14 @@
 import { View, StyleSheet, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TextInput, Card, Button, Title, Switch } from "react-native-paper";
-import { basic, dark } from "../default/colors";
+import {
+  TextInput,
+  Card,
+  Button,
+  Title,
+  Switch,
+  useTheme,
+} from "react-native-paper";
+import { basic, dark, bgcolor } from "../default/colors";
 import React, { useState, useEffect } from "react";
 import Alert from "../components/Alert";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -16,6 +23,8 @@ const Login = ({ navigation, checkUser }) => {
   const [form, setForm] = useState(initalState);
   const [alert, setAlert] = useState("");
   const [coach, setCoach] = useState(false);
+
+  const { colors } = useTheme();
 
   useEffect(() => {
     <Alert alert={alert} setAlert={setAlert} />;
@@ -135,7 +144,9 @@ const Login = ({ navigation, checkUser }) => {
               Log me in !
             </Button>
 
-            <Text style={{ marginVertical: 10, fontSize: 16 }}>
+            <Text
+              style={{ marginVertical: 10, fontSize: 16, color: colors.text }}
+            >
               I m a new user,{" "}
               <Text
                 style={{ fontWeight: "bold", color: "red" }}
@@ -154,7 +165,8 @@ const Login = ({ navigation, checkUser }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: bgcolor,
+    // borderColor: "white", "white",
     padding: 30,
     // alignItems: "center",
     justifyContent: "center",
