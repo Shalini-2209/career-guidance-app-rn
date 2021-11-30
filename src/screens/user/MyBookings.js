@@ -1,9 +1,10 @@
-import { ScrollView, Text } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { List, Button, Drawer } from "react-native-paper";
 import { onValue } from "firebase/database";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
 import { basic, dark } from "../../default/colors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MyBookings = ({ checkUser }) => {
@@ -62,7 +63,19 @@ const MyBookings = ({ checkUser }) => {
           );
         })
       ) : (
-        <Text style={{ color: "white" }}>Zero bookings encountered:)</Text>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <MaterialCommunityIcons
+            name="emoticon-sad-outline"
+            size={85}
+            color="#bdc3c7"
+          />
+          <Text style={{ color: "#95a5a6", fontSize: 20 }}>Whoops !</Text>
+          <Text style={{ color: "#95a5a6", fontSize: 17 }}>
+            You haven't booked a session yet. 
+          </Text>
+        </View>
       )}
       <Button
         icon="account-arrow-right-outline"
