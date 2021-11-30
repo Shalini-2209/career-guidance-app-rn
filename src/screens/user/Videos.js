@@ -1,4 +1,5 @@
 import axios from "axios";
+import Loading from "../../components/Loading";
 import React, { useState, useEffect } from "react";
 import { WebView } from "react-native-webview";
 import { StyleSheet, View, ScrollView } from "react-native";
@@ -17,6 +18,7 @@ const Videos = () => {
   useEffect(() => {
     async function getVideos() {
       try {
+        console.log("working");
         const response = await axios.get(url);
 
         const videos = response.data.items.map(
@@ -37,21 +39,28 @@ const Videos = () => {
         flexGrow: 1,
       }}
     >
-      {list.map((link, index) => {
-        return (
-          <WebView
-            originWhitelist={["*"]}
-            scrollEnabled={true}
-            source={{
-              html: `<iframe width="100%"
+      {list ? (
+        <>
+          {" "}
+          {list.map((link, index) => {
+            return (
+              <WebView
+                originWhitelist={["*"]}
+                scrollEnabled={true}
+                source={{
+                  html: `<iframe width="100%"
         height="100%" src=${link}
         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-            }}
-            style={{ marginVertical: 3, height: 200 }}
-            key={index}
-          />
-        );
-      })}
+                }}
+                style={{ marginVertical: 3, height: 200 }}
+                key={index}
+              />
+            );
+          })}{" "}
+        </>
+      ) : (
+        <Loading />
+      )}
     </ScrollView>
   );
 };
