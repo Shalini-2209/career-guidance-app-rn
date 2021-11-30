@@ -84,7 +84,7 @@ const Coaches = () => {
             return (
               <View style={styles.item} key={item}>
                 {coaches[item].slots > 0 && (
-                  <Card>
+                  <Card style={{ margin: 2 }}>
                     <Card.Title
                       title={item.toUpperCase()}
                       subtitle={"Available slots:" + coaches[item].slots}
