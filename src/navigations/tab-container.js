@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { basic } from "../default/colors";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Coaches from "../screens/user/Coaches";
 import Headlines from "../screens/user/Headlines";
@@ -23,17 +25,77 @@ export default function MyTabs({ role, checkUser }) {
     <Tab.Navigator>
       {role === "user" && (
         <>
-          <Tab.Screen name="Articles" component={Headlines} />
-          {/* <Tab.Screen name="Videos" component={Videos} /> */}
-          <Tab.Screen name="Coaches" component={Coaches} />
-          <Tab.Screen name="My Bookings" component={MyBookingsWithProps} />
+          <Tab.Screen
+            name="Articles"
+            component={Headlines}
+            options={{
+              tabBarLabel: "Articles",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="newspaper" size={24} color={basic} />
+              ),
+            }}
+          />
+          {/* <Tab.Screen
+            name="Videos"
+            component={Videos}
+            options={{
+              tabBarLabel: "Videos",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="video" size={24} color={basic} />
+              ),
+            }}
+          /> */}
+          <Tab.Screen
+            name="Coaches"
+            component={Coaches}
+            options={{
+              tabBarLabel: "Coaches",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="users" size={24} color={basic} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="My Bookings"
+            component={MyBookingsWithProps}
+            options={{
+              tabBarLabel: "My Bookings",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="user-circle" size={24} color={basic} />
+              ),
+            }}
+          />
         </>
       )}
 
       {role === "coach" && (
         <>
-          <Tab.Screen name="Profile" component={ProfileWithProps} />
-          <Tab.Screen name="Sessions" component={Sessions} />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileWithProps}
+            options={{
+              tabBarLabel: "Profile",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="user-circle" size={24} color={basic} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Sessions"
+            component={Sessions}
+            options={{
+              tabBarLabel: "Sessions",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="book-reader" size={24} color={basic} />
+              ),
+            }}
+          />
         </>
       )}
 
