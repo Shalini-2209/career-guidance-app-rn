@@ -160,7 +160,9 @@ const Register = () => {
               activeOutlineColor={dark}
               onChangeText={(text) => handleChange(text, "pwd")}
             />
-            <Text style={{ fontWeight: "bold", color: "red", marginBottom: 2 }}>
+            <Text
+              style={{ fontWeight: "bold", color: "#b33939", marginBottom: 2 }}
+            >
               Enter aleast 5 characters
             </Text>
 
@@ -212,7 +214,7 @@ const Register = () => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    color: "#EA2027",
+                    color: "#b33939",
                     textTransform: "uppercase",
                   }}
                   onPress={() => setUser(!user)}

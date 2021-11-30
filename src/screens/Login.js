@@ -130,7 +130,7 @@ const Login = ({ navigation, checkUser }) => {
               <Switch
                 value={coach}
                 onValueChange={() => setCoach(!coach)}
-                color="#1289A7"
+                color={basic}
                 style={{ alignSelf: "flex-end" }}
               />
             </View>
@@ -139,7 +139,7 @@ const Login = ({ navigation, checkUser }) => {
               icon="import"
               mode="contained"
               style={{ marginTop: 20, padding: "2%" }}
-              color={basic}
+              color="#7f5bab"
               onPress={handleLogin}
             >
               Log me in !
@@ -150,7 +150,7 @@ const Login = ({ navigation, checkUser }) => {
             >
               I m a new user,{" "}
               <Text
-                style={{ fontWeight: "bold", color: "red" }}
+                style={{ fontWeight: "bold", color: "#b33939" }}
                 onPress={() => navigation.navigate("Register")}
               >
                 Sign up.
