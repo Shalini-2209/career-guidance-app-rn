@@ -1,5 +1,5 @@
 import { ScrollView, Text, View } from "react-native";
-import { List, Button, Drawer } from "react-native-paper";
+import { List, Button } from "react-native-paper";
 import { onValue } from "firebase/database";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
@@ -28,38 +28,27 @@ const MyBookings = ({ checkUser }) => {
   }, []);
 
   return (
-    <ScrollView style={{ flexGrow: 1 }}>
-      <Drawer.Section title="Some title">
-        <Drawer.Item
-          label="First Item"
-          active={active === "first"}
-          onPress={() => setActive("first")}
-        />
-        <Drawer.Item
-          label="Second Item"
-          active={active === "second"}
-          onPress={() => setActive("second")}
-        />
-      </Drawer.Section>
+    <>
       {bookings ? (
         Object.keys(bookings).map((elt) => {
           return (
-            <List.Item
-              key={bookings[elt].name}
-              title={"Meet your career counsellor " + bookings[elt].name}
-              description={"Booking time: " + bookings[elt].date}
-              left={(props) => (
-                <List.Icon
-                  {...props}
-                  icon="account-circle"
-                  style={{
-                    backgroundColor: dark,
-                    borderRadius: "50%",
-                  }}
-                  color="white"
-                />
-              )}
-            />
+            <ScrollView style={{ flexGrow: 1 }} key={bookings[elt].name}>
+              <List.Item
+                title={"Meet your career counsellor " + bookings[elt].name}
+                description={"Booking time: " + bookings[elt].date}
+                left={(props) => (
+                  <List.Icon
+                    {...props}
+                    icon="account-circle"
+                    style={{
+                      backgroundColor: dark,
+                      borderRadius: "50%",
+                    }}
+                    color="white"
+                  />
+                )}
+              />
+            </ScrollView>
           );
         })
       ) : (
@@ -73,7 +62,7 @@ const MyBookings = ({ checkUser }) => {
           />
           <Text style={{ color: "#95a5a6", fontSize: 20 }}>Whoops !</Text>
           <Text style={{ color: "#95a5a6", fontSize: 17 }}>
-            You haven't booked a session yet. 
+            You haven't booked a session yet.
           </Text>
         </View>
       )}
@@ -86,7 +75,7 @@ const MyBookings = ({ checkUser }) => {
       >
         Log out
       </Button>
-    </ScrollView>
+    </>
   );
 };
 
