@@ -56,16 +56,6 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
       />
 
       <TextInput
-        label="Experience in years"
-        value={details.experience}
-        mode="outlined"
-        outlineColor={basic}
-        keyboardType="numeric"
-        activeOutlineColor={dark}
-        onChangeText={(text) => setDetails({ ...details, experience: text })}
-      />
-
-      <TextInput
         label="Available Slots"
         value={details.slots}
         mode="outlined"
@@ -75,6 +65,15 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
         onChangeText={(num) => setDetails({ ...details, slots: num })}
       />
 
+      <TextInput
+        label="Experience in years"
+        value={details.experience}
+        mode="outlined"
+        outlineColor={basic}
+        keyboardType="numeric"
+        activeOutlineColor={dark}
+        onChangeText={(text) => setDetails({ ...details, experience: text })}
+      />
       {/* {[...Array(details.slots)].map((elem) => (
         <span key={elem}></span>
       ))} */}
@@ -93,7 +92,7 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "white", justifyContent: "center" },
+  container: { flex: 1, justifyContent: "center" },
 
   heading: {
     textAlign: "center",
