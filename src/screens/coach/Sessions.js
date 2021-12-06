@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet } from "react-native";
+import { ScrollView, Text, StyleSheet, View } from "react-native";
 import { List, Surface } from "react-native-paper";
 import {
   getDatabase,
@@ -11,13 +11,13 @@ import {
 import { dark } from "../../default/colors";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
-import { sendEmail } from "../../components/sendEmail";
+import { sendEmail } from "../../services/sendEmail";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Error from "../../components/Error";
 
 const Sessions = () => {
   // booked sessions
   const [bookings, setBookings] = useState([]);
-  const [msg, setMsg] = useState("");
   const db = getDatabase();
 
   useEffect(() => {
@@ -25,7 +25,6 @@ const Sessions = () => {
       const curRef = await getRef("bookings/", "coach");
       onValue(curRef, (snapshot) => {
         if (snapshot.exists()) setBookings(snapshot.val());
-        else setMsg("No upcoming sessions!");
       });
     };
     fetchData();
@@ -87,36 +86,38 @@ const Sessions = () => {
     });
   };
   return (
-    <ScrollView style={{ flexGrow: 1 }}>
+    <>
       {bookings.length ? (
         Object.keys(bookings).map((elt) => {
           return (
-            <Surface style={styles.surface} key={bookings[elt].name}>
-              <List.Item
-                title={bookings[elt].name + " is waiting for your session"}
-                description="Click here to send meeting link..."
-                descriptionNumberOfLines={1}
-                descriptionEllipsizeMode="tail"
-                left={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon="account-circle"
-                    style={{
-                      backgroundColor: dark,
-                      borderRadius: "50%",
-                    }}
-                    color="white"
-                  />
-                )}
-                onPress={() => handleMeeting(bookings[elt].name, elt)}
-              />
-            </Surface>
+            <ScrollView style={{ flexGrow: 1 }}>
+              <Surface style={styles.surface} key={bookings[elt].name}>
+                <List.Item
+                  title={bookings[elt].name + " is waiting for your session"}
+                  description="Click here to send meeting link..."
+                  descriptionNumberOfLines={1}
+                  descriptionEllipsizeMode="tail"
+                  left={(props) => (
+                    <List.Icon
+                      {...props}
+                      icon="account-circle"
+                      style={{
+                        backgroundColor: dark,
+                        borderRadius: "50%",
+                      }}
+                      color="white"
+                    />
+                  )}
+                  onPress={() => handleMeeting(bookings[elt].name, elt)}
+                />
+              </Surface>
+            </ScrollView>
           );
         })
       ) : (
-        <Text> No upcoming sessions </Text>
+        <Error errorMsg="No upcoming sessions. " />
       )}
-    </ScrollView>
+    </>
   );
 };
 

@@ -1,21 +1,15 @@
-import { ScrollView, Text, View } from "react-native";
-import { List, Button } from "react-native-paper";
+import { ScrollView, } from "react-native";
+import { List } from "react-native-paper";
 import { onValue } from "firebase/database";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
-import { basic, dark } from "../../default/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { dark } from "../../default/colors";
+import Error from "../../components/Error";
 
-const MyBookings = ({ checkUser }) => {
+const MyBookings = () => {
   // booked sessions
   const [bookings, setBookings] = useState([]);
   const [active, setActive] = React.useState("");
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("user");
-    checkUser();
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,29 +46,8 @@ const MyBookings = ({ checkUser }) => {
           );
         })
       ) : (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <MaterialCommunityIcons
-            name="emoticon-sad-outline"
-            size={85}
-            color="#bdc3c7"
-          />
-          <Text style={{ color: "#95a5a6", fontSize: 20 }}>Whoops !</Text>
-          <Text style={{ color: "#95a5a6", fontSize: 17 }}>
-            You haven't booked a session yet.
-          </Text>
-        </View>
+        <Error errorMsg="You haven't booked a session yet." />
       )}
-      <Button
-        icon="account-arrow-right-outline"
-        mode="contained"
-        style={{ margin: 20, padding: "2%" }}
-        color={basic}
-        onPress={handleLogout}
-      >
-        Log out
-      </Button>
     </>
   );
 };
