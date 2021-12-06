@@ -5,16 +5,10 @@ import UpdateForm from "./UpdateForm";
 import { Button, Avatar, Surface, Title, DataTable } from "react-native-paper";
 import { onValue } from "firebase/database";
 import { basic } from "../../default/colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Profile = ({ checkUser }) => {
+const Profile = () => {
   const [details, setDetails] = new useState(null);
   const [showForm, setShowForm] = new useState(false);
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("coach");
-    checkUser();
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +35,7 @@ const Profile = ({ checkUser }) => {
           }}
         >
           <ImageBackground
-            source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_1K206nuBRkQFLSS0kWc9b7hr2AlXRGUZt8fL0nBWajfwcRSi0q4qqm6PEUzE9uHHXWQ&usqp=CAU"
+            source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXc4gVACWlY1P46omdK9BxlG8MsFTA_NRzoVFQs4Hyr2tZizxcXU9L7wy9b5hRPr87h94&usqp=CAU"
             style={styles.main}
           >
             <Avatar.Image
@@ -101,30 +95,19 @@ const Profile = ({ checkUser }) => {
               </Surface>
             </>
           )}
-
-          <View style={styles.btnContainer}>
-            <View style={styles.item}>
-              <Button
-                icon="account-edit"
-                mode="contained"
-                style={{ marginTop: 20, padding: "2%" }}
-                color={basic}
-                onPress={() => setShowForm(!showForm)}
-              >
-                Edit Profile
-              </Button>
-            </View>
-            <View style={styles.item}>
-              <Button
-                icon="account-arrow-right-outline"
-                mode="contained"
-                style={{ marginTop: 20, padding: "2%" }}
-                color="#c0392b"
-                onPress={handleLogout}
-              >
-                Log out!
-              </Button>
-            </View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Button
+              icon="account-edit"
+              mode="contained"
+              style={{
+                marginTop: 20,
+                padding: "2%",
+              }}
+              color={basic}
+              onPress={() => setShowForm(!showForm)}
+            >
+              Edit Profile
+            </Button>
           </View>
         </ScrollView>
       )}
@@ -144,16 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 4,
     marginVertical: 10,
-  },
-  btnContainer: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-  },
-  item: {
-    width: "49%",
-    marginHorizontal: 2,
   },
 });
 
