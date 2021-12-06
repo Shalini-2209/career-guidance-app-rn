@@ -1,21 +1,31 @@
-import React from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
+import Login from "../screens/Login";
+import React, { useState } from "react";
 import { basic } from "../default/colors";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Coaches from "../screens/user/Coaches";
 import Headlines from "../screens/user/Headlines";
 import Profile from "../screens/coach/Profile";
 import MyBookings from "../screens/user/MyBookings";
 import Videos from "../screens/user/Videos";
 import Sessions from "../screens/coach/Sessions";
-import Login from "../screens/Login";
+import { FontAwesome5, Entypo } from "@expo/vector-icons";
+import { Menu, Divider } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs({ role, checkUser }) {
-  const ProfileWithProps = () => <Profile checkUser={checkUser} />;
+  // Menu
+  const [visible, setVisible] = useState(false);
 
-  const MyBookingsWithProps = () => <MyBookings checkUser={checkUser} />;
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem(role);
+    checkUser();
+  };
 
   const LoginWithProps = ({ navigation }) => (
     <Login navigation={navigation} checkUser={checkUser} />
@@ -60,9 +70,30 @@ export default function MyTabs({ role, checkUser }) {
           />
           <Tab.Screen
             name="My Bookings"
-            component={MyBookingsWithProps}
+            component={MyBookings}
             options={{
               tabBarLabel: "My Bookings",
+              headerRight: () => (
+                <Menu
+                  visible={visible}
+                  onDismiss={closeMenu}
+                  anchor={
+                    <Entypo
+                      name="dots-three-vertical"
+                      size={20}
+                      color="white"
+                      style={{ marginRight: 10 }}
+                      onPress={openMenu}
+                    />
+                  }
+                >
+                  <Menu.Item onPress={closeMenu} title="Close" />
+                  <Divider />
+                  <Menu.Item onPress={handleLogout} title="Sign out" />
+
+                  {/* <Menu.Item onPress={() => {}} title="Item 3" /> */}
+                </Menu>
+              ),
               tabBarLabelStyle: { color: "white" },
               tabBarIcon: () => (
                 <FontAwesome5 name="user-circle" size={24} color={basic} />
@@ -76,10 +107,29 @@ export default function MyTabs({ role, checkUser }) {
         <>
           <Tab.Screen
             name="Profile"
-            component={ProfileWithProps}
+            component={Profile}
             options={{
               tabBarLabel: "Profile",
               tabBarLabelStyle: { color: "white" },
+              headerRight: () => (
+                <Menu
+                  visible={visible}
+                  onDismiss={closeMenu}
+                  anchor={
+                    <Entypo
+                      name="dots-three-vertical"
+                      size={20}
+                      color="white"
+                      style={{ marginRight: 10 }}
+                      onPress={openMenu}
+                    />
+                  }
+                >
+                  <Menu.Item onPress={closeMenu} title="Close" />
+                  <Divider />
+                  <Menu.Item onPress={handleLogout} title="Sign out" />
+                </Menu>
+              ),
               tabBarIcon: () => (
                 <FontAwesome5 name="user-circle" size={24} color={basic} />
               ),
