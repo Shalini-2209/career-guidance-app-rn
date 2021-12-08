@@ -18,15 +18,18 @@ const Coaches = () => {
     let uid = await AsyncStorage.getItem("user");
 
     let bookingId = Date.now();
+    let today = new Date();
+    let frameDate =
+      today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
 
     set(ref(db, "bookings/" + uid + "/" + bookingId), {
       name: selectedCoach,
-      date: Date(),
+      date: frameDate,
     });
 
     set(ref(db, "bookings/" + selectedCoach + "/" + bookingId), {
       name: uid,
-      date: Date(),
+      date: frameDate,
     });
   };
 
@@ -93,7 +96,7 @@ const Coaches = () => {
                     <Card.Content>
                       <Paragraph>{coaches[item].contact}</Paragraph>
                     </Card.Content>
-                    <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+                    {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
                     <Card.Actions>
                       <Button>Cancel</Button>
                       <Button onPress={() => handleBooking(item)}>Book</Button>
