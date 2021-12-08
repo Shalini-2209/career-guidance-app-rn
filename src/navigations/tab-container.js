@@ -5,6 +5,7 @@ import Coaches from "../screens/user/Coaches";
 import Headlines from "../screens/user/Headlines";
 import Profile from "../screens/coach/Profile";
 import MyBookings from "../screens/user/MyBookings";
+import Quiz from "../screens/user/Quiz";
 import Videos from "../screens/user/Videos";
 import Sessions from "../screens/coach/Sessions";
 import { FontAwesome5, Entypo } from "@expo/vector-icons";
@@ -57,6 +58,18 @@ export default function MyTabs({ role, checkUser }) {
               ),
             }}
           /> */}
+
+          <Tab.Screen
+            name="Take a quiz"
+            component={Quiz}
+            options={{
+              tabBarLabel: "Self Assessment",
+              tabBarLabelStyle: { color: "white" },
+              tabBarIcon: () => (
+                <FontAwesome5 name="check-square" size={24} color={basic} />
+              ),
+            }}
+          />
           <Tab.Screen
             name="Coaches"
             component={Coaches}
@@ -68,6 +81,7 @@ export default function MyTabs({ role, checkUser }) {
               ),
             }}
           />
+
           <Tab.Screen
             name="My Bookings"
             component={MyBookings}
