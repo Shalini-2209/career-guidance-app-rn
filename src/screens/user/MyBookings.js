@@ -1,4 +1,4 @@
-import { ScrollView, } from "react-native";
+import { ScrollView } from "react-native";
 import { List } from "react-native-paper";
 import { onValue } from "firebase/database";
 import React, { useState, useEffect } from "react";
@@ -9,7 +9,6 @@ import Error from "../../components/Error";
 const MyBookings = () => {
   // booked sessions
   const [bookings, setBookings] = useState([]);
-  const [active, setActive] = React.useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +28,7 @@ const MyBookings = () => {
             <ScrollView style={{ flexGrow: 1 }} key={bookings[elt].name}>
               <List.Item
                 title={"Meet your career counsellor " + bookings[elt].name}
-                description={"Booking time: " + bookings[elt].date}
+                description={"Booking Date: " + bookings[elt].date}
                 left={(props) => (
                   <List.Icon
                     {...props}
