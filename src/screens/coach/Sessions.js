@@ -1,13 +1,7 @@
-import { ScrollView, Text, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { List, Surface } from "react-native-paper";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  update,
-  remove,
-  set,
-} from "firebase/database";
+import database from "../../storage/firebase";
+import { ref, onValue, update, remove } from "firebase/database";
 import { dark } from "../../default/colors";
 import React, { useState, useEffect } from "react";
 import { getRef } from "../../services/api-services";
@@ -17,8 +11,8 @@ import Error from "../../components/Error";
 
 const Sessions = () => {
   // booked sessions
-  const [bookings, setBookings] = useState([]);
-  const db = getDatabase();
+  const [bookings, setBookings] = useState(null);
+  const db = database;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,8 +23,6 @@ const Sessions = () => {
     };
     fetchData();
   }, []);
-
-  // console.log(bookings);
 
   const deleteBooking = (uid, cid, bookingId) => {
     const userRef = ref(db, "/bookings/" + uid + "/" + bookingId);
@@ -56,13 +48,13 @@ const Sessions = () => {
       newRef,
       (snapshot) => {
         let available = snapshot.val() + 1;
-        console.log(available);
+        // console.log(available);
         update(ref(db, "coaches/" + cid + "/"), { slots: available })
           .then(() => {
             console.log("Updated");
           })
           .catch((error) => {
-            console.log({ error });
+            throw new Error(error);
           });
       },
       {
@@ -87,10 +79,10 @@ const Sessions = () => {
   };
   return (
     <>
-      {bookings.length ? (
-        Object.keys(bookings).map((elt) => {
-          return (
-            <ScrollView style={{ flexGrow: 1 }}>
+      {bookings ? (
+        <ScrollView style={{ flexGrow: 1 }}>
+          {Object.keys(bookings).map((elt) => {
+            return (
               <Surface style={styles.surface} key={bookings[elt].name}>
                 <List.Item
                   title={bookings[elt].name + " is waiting for your session"}
@@ -111,9 +103,9 @@ const Sessions = () => {
                   onPress={() => handleMeeting(bookings[elt].name, elt)}
                 />
               </Surface>
-            </ScrollView>
-          );
-        })
+            );
+          })}
+        </ScrollView>
       ) : (
         <Error errorMsg="No upcoming sessions. " />
       )}
