@@ -166,12 +166,9 @@ const Login = ({ navigation, checkUser }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: bgcolor,
-    // borderColor: "white", "white",
     padding: 30,
     // alignItems: "center",
     justifyContent: "center",
-    // width: "75%",
     height: "100%",
   },
 });
