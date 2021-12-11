@@ -1,4 +1,4 @@
-import { getDatabase, ref, onValue } from "firebase/database";
+import { ref } from "firebase/database";
 import database from "../storage/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
