@@ -63,7 +63,7 @@ export default function MyTabs({ role, checkUser }) {
             name="Take a quiz"
             component={Quiz}
             options={{
-              tabBarLabel: "Self Assessment",
+              tabBarLabel: "Quiz",
               tabBarLabelStyle: { color: "white" },
               tabBarIcon: () => (
                 <FontAwesome5 name="check-square" size={24} color={basic} />
