@@ -5,7 +5,7 @@ import Coaches from "../screens/user/Coaches";
 import Headlines from "../screens/user/Headlines";
 import Profile from "../screens/coach/Profile";
 import MyBookings from "../screens/user/MyBookings";
-import Quiz from "../screens/user/Quiz";
+import Quiz from "../screens/user/QuizDashboard";
 import Videos from "../screens/user/Videos";
 import Sessions from "../screens/coach/Sessions";
 import { FontAwesome5, Entypo } from "@expo/vector-icons";

@@ -13,6 +13,7 @@ import Register from "../screens/Register";
 import Login from "../screens/Login";
 import Profile from "../screens/coach/Profile";
 import Test from "../screens/user/Test";
+import QuizResult from "../screens/user/QuizResult";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,7 @@ function Routes() {
             <Stack.Screen name="Articles" component={Headlines} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Test" component={Test} />
+            <Stack.Screen name="Result" component={QuizResult} />
           </Stack.Navigator>
         </NavigationContainer>
       ) : (
