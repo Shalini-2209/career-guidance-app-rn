@@ -10,6 +10,7 @@ import {
   Divider,
 } from "react-native-paper";
 import database from "../../storage/firebase";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { basic, dark } from "../../default/colors";
 
 const Test = ({ navigation }) => {
@@ -64,24 +65,34 @@ const Test = ({ navigation }) => {
         navigation.navigate("Result", {
           result: "Computer Science",
         });
-      else navigation.navigate("Result", { result: "Management Studies" });
+      else if (fields.cs < fields.mba)
+        navigation.navigate("Result", { result: "Management Studies" });
+      else
+        navigation.navigate("Result", {
+          result: "neither of the courses offered.",
+        });
     }
   };
 
   // console.log({ questionBank });
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       {questionBank && index < 10 && (
         <Card style={styles.card}>
-          {/* <FontAwesome5
-            name="business-time"
-            size={70}
-            color={basic}
-            style={{ marginBottom: 10 }}
-          /> */}
-          <Headline style={{ marginBottom: 4, textAlign: "center" }}>
-            Question {questionBank[index].id}
-          </Headline>
+          <View style={styles.fixRow}>
+            <MaterialCommunityIcons
+              name="crosshairs-question"
+              size={35}
+              color={basic}
+              style={{ marginTop: 2 }}
+            />
+
+            <Headline
+              style={{ marginBottom: 4, textAlign: "center", marginLeft: 7 }}
+            >
+              Question {questionBank[index].id}
+            </Headline>
+          </View>
           <Subheading style={{ margin: 4 }}>
             {questionBank[index].question}
           </Subheading>
@@ -106,7 +117,7 @@ const Test = ({ navigation }) => {
             <Text style={styles.options}>Not interested</Text>
           </View>
 
-          <Divider />
+          <Divider style={{ margin: 3 }} />
 
           <View style={styles.container}>
             <Button
@@ -120,16 +131,6 @@ const Test = ({ navigation }) => {
           </View>
         </Card>
       )}
-      {/* {index === questionBank[length - 1] && (
-        <Button
-          mode="contained"
-          style={styles.testBtn}
-          color={dark}
-          // onPress={() => navigation.navigate("Test")}
-        >
-          Finish Test
-        </Button>
-      )} */}
     </View>
   );
 };
@@ -150,12 +151,12 @@ const styles = StyleSheet.create({
     margin: 15,
     textAlign: "center",
     padding: 10,
+    width: "80%",
   },
 
   testBtn: {
-    marginTop: 20,
+    marginVertical: 20,
     padding: "2%",
-    marginBottom: 2,
     width: "45%",
   },
 });

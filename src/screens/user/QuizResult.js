@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Headline,
   Subheading,
@@ -18,25 +18,30 @@ const QuizResult = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
-        <FontAwesome5
-          name="business-time"
+        <MaterialCommunityIcons
+          name="sticker-check"
           size={70}
-          color={basic}
+          color="#27ae60"
           style={{ marginBottom: 10 }}
         />
+
         <Headline style={{ marginBottom: 4, textAlign: "center" }}>
           Quiz Result
         </Headline>
         <Subheading style={{ marginBottom: 4 }}>
-          You are interested in {JSON.stringify(result)}
+          You are interested in{" "}
+          <Subheading style={{ textTransform: "uppercase" }}>
+            {JSON.stringify(result)}
+          </Subheading>
         </Subheading>
-        <Divider />
+        <Divider style={{ marginVertical: 5 }} />
 
         <View style={styles.container}>
           <Button
             mode="contained"
             style={styles.homeBtn}
             color={dark}
+            style={{ marginVertical: 5, padding: 3 }}
             onPress={() => navigation.navigate("Tabs")}
           >
             Home
