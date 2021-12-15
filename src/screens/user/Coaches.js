@@ -49,6 +49,7 @@ const Coaches = () => {
       eligible: details.eligible,
       slots: details.slots - 1,
       pwd: details.pwd,
+      image: details.image,
       experience: details.experience || 0,
       qualification: details.qualification || "nil",
     })
@@ -56,7 +57,7 @@ const Coaches = () => {
         setAlert("Booked successfully!");
       })
       .catch((error) => {
-        console.log("Update failed ! " + error);
+        console.error("Update failed ! " + error);
       });
   };
 
