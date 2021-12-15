@@ -45,7 +45,10 @@ const Login = ({ navigation, checkUser }) => {
         onValue(
           ref(db, "/coaches/" + userId),
           (snapshot) => {
-            if (form.pwd === snapshot.val().pwd) {
+            if (
+              form.pwd === snapshot.val().pwd &&
+              form.mail === snapshot.val().email
+            ) {
               storeUser("coach", userId);
               checkUser();
               // setAlert("Logged in as coach..");
@@ -60,7 +63,10 @@ const Login = ({ navigation, checkUser }) => {
           ref(db, "/users/" + userId),
           (snapshot) => {
             if (snapshot.exists()) {
-              if (form.pwd === snapshot.val().pwd) {
+              if (
+                form.pwd === snapshot.val().pwd &&
+                form.mail === snapshot.val().email
+              ) {
                 storeUser("user", userId);
                 checkUser();
                 // setAlert("Logged in successfully..");
