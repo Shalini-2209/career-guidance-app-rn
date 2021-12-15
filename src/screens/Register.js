@@ -33,6 +33,8 @@ const Register = () => {
     contact: "",
     degree: "selected",
     slots: 1,
+    image:
+      "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659651_960_720.png",
   };
 
   // cdata === coach data
@@ -72,6 +74,7 @@ const Register = () => {
         contact: cdata.contact,
         eligible: true,
         slots: 1,
+        image: cdata.image,
       });
 
       setCdata(initialValue);
@@ -178,6 +181,18 @@ const Register = () => {
                   activeOutlineColor={dark}
                   keyboardType="numeric"
                   onChangeText={(num) => handleChange(num, "slots")}
+                />
+
+                <TextInput
+                  mode="outlined"
+                  value={cdata.image}
+                  label="Profile picture"
+                  placeholder="Paste an url"
+                  // style={{ marginBottom: 10 }}
+                  outlineColor={basic}
+                  activeOutlineColor={dark}
+                  // keyboardType="numeric"
+                  onChangeText={(text) => handleChange(text, "image")}
                 />
                 <RadioButton.Group
                   onValueChange={(value) =>
