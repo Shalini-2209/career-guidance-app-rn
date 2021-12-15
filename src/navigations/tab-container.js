@@ -47,7 +47,7 @@ export default function MyTabs({ role, checkUser }) {
               ),
             }}
           />
-          {/* <Tab.Screen
+          <Tab.Screen
             name="Videos"
             component={Videos}
             options={{
@@ -57,7 +57,7 @@ export default function MyTabs({ role, checkUser }) {
                 <FontAwesome5 name="video" size={24} color={basic} />
               ),
             }}
-          /> */}
+          />
 
           <Tab.Screen
             name="Take a quiz"
