@@ -96,7 +96,7 @@ const Coaches = () => {
                     <Card.Content>
                       <Paragraph>{coaches[item].contact}</Paragraph>
                     </Card.Content>
-                    {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+                    <Card.Cover source={{ uri: coaches[item].image }} />
                     <Card.Actions>
                       <Button>Cancel</Button>
                       <Button onPress={() => handleBooking(item)}>Book</Button>
