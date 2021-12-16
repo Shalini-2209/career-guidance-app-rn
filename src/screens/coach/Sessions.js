@@ -95,7 +95,7 @@ const Sessions = () => {
                       icon="account-circle"
                       style={{
                         backgroundColor: dark,
-                        borderRadius: "50%",
+                        // borderRadius: "50%",
                       }}
                       color="white"
                     />

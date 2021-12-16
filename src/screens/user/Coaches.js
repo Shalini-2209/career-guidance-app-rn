@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Alert from "../../components/Alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getDatabase, ref, onValue, set } from "firebase/database";
@@ -79,37 +79,41 @@ const Coaches = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <>
       {alert ? (
         <Alert alert={alert} setAlert={setAlert} />
       ) : (
-        <>
-          {Object.keys(coaches).map((item) => {
-            return (
-              <View style={styles.item} key={item}>
-                {coaches[item].slots > 0 && (
-                  <Card style={{ margin: 2 }}>
-                    <Card.Title
-                      title={item.toUpperCase()}
-                      subtitle={"Available slots:" + coaches[item].slots}
-                    />
+        <ScrollView style={{ flexGrow: 1 }}>
+          <View style={styles.container}>
+            {Object.keys(coaches).map((item) => {
+              return (
+                <View style={styles.item} key={item}>
+                  {coaches[item].slots > 0 && (
+                    <Card style={{ margin: 2 }}>
+                      <Card.Title
+                        title={item.toUpperCase()}
+                        subtitle={"Available slots:" + coaches[item].slots}
+                      />
 
-                    <Card.Content>
-                      <Paragraph>{coaches[item].contact}</Paragraph>
-                    </Card.Content>
-                    <Card.Cover source={{ uri: coaches[item].image }} />
-                    <Card.Actions>
-                      <Button>Cancel</Button>
-                      <Button onPress={() => handleBooking(item)}>Book</Button>
-                    </Card.Actions>
-                  </Card>
-                )}
-              </View>
-            );
-          })}
-        </>
+                      <Card.Content>
+                        <Paragraph>{coaches[item].contact}</Paragraph>
+                      </Card.Content>
+                      <Card.Cover source={{ uri: coaches[item].image }} />
+                      <Card.Actions>
+                        <Button>Cancel</Button>
+                        <Button onPress={() => handleBooking(item)}>
+                          Book
+                        </Button>
+                      </Card.Actions>
+                    </Card>
+                  )}
+                </View>
+              );
+            })}
+          </View>
+        </ScrollView>
       )}
-    </View>
+    </>
   );
 };
 

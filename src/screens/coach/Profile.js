@@ -9,7 +9,9 @@ import { basic } from "../../default/colors";
 const Profile = () => {
   const [details, setDetails] = new useState(null);
   const [showForm, setShowForm] = new useState(false);
-
+  const background = {
+    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXc4gVACWlY1P46omdK9BxlG8MsFTA_NRzoVFQs4Hyr2tZizxcXU9L7wy9b5hRPr87h94&usqp=CAU",
+  };
   useEffect(() => {
     const fetchData = async () => {
       let curRef = await getRef("coaches/", "coach");
@@ -34,17 +36,15 @@ const Profile = () => {
             flexGrow: 1,
           }}
         >
-          <ImageBackground
-            source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXc4gVACWlY1P46omdK9BxlG8MsFTA_NRzoVFQs4Hyr2tZizxcXU9L7wy9b5hRPr87h94&usqp=CAU"
-            style={styles.main}
-          >
+          <ImageBackground source={background} style={styles.main}>
             <Avatar.Image
               size={130}
-              source={
-                details && details.image
-                  ? details.image
-                  : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyD3SI8Qdekp6twYtnVVcpKfHw7WVQGy9Yfd32EiXPZI30cEgXJ-XhquB0ObTnutlwQrM&usqp=CAU"
-              }
+              source={{
+                uri:
+                  details && details.image
+                    ? details.image
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyD3SI8Qdekp6twYtnVVcpKfHw7WVQGy9Yfd32EiXPZI30cEgXJ-XhquB0ObTnutlwQrM&usqp=CAU",
+              }}
             />
             {details && (
               <Title

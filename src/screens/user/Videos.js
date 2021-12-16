@@ -41,7 +41,6 @@ const Videos = () => {
     >
       {list ? (
         <>
-          {" "}
           {list.map((link, index) => {
             return (
               <WebView
@@ -56,7 +55,7 @@ const Videos = () => {
                 key={index}
               />
             );
-          })}{" "}
+          })}
         </>
       ) : (
         <Loading />

@@ -8,21 +8,19 @@ import {
   Card,
   Divider,
 } from "react-native-paper";
-import { basic, dark } from "../../default/colors";
+import { dark } from "../../default/colors";
 
 const QuizResult = ({ route, navigation }) => {
   const { result } = route.params;
 
-  console.log({ route });
-
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       <Card style={styles.card}>
         <MaterialCommunityIcons
           name="sticker-check"
           size={70}
           color="#27ae60"
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 10, textAlign: "center" }}
         />
 
         <Headline style={{ marginBottom: 4, textAlign: "center" }}>
@@ -54,7 +52,6 @@ const QuizResult = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     margin: 2,

@@ -12,24 +12,22 @@ import { basic, dark } from "../../default/colors";
 
 const Quiz = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       <Card style={styles.card}>
         <FontAwesome5
           name="business-time"
           size={70}
           color={basic}
-          style={{ marginBottom: 10 }}
+          style={{ textAlign: "center" }}
         />
-        <Headline style={{ marginBottom: 4, textAlign: "center" }}>
-          Interests
-        </Headline>
-        <Subheading style={{ marginBottom: 4 }}>
+        <Headline style={{ textAlign: "center" }}>Interests</Headline>
+        <Subheading>
           See where your interests lie, and explore what type of jobs would suit
           you well.
         </Subheading>
-        <Divider />
+        <Divider style={{ marginVertical: 10 }} />
 
-        <View style={styles.container}>
+        <View style={{ alignItems: "center" }}>
           <Button
             mode="contained"
             style={styles.testBtn}
@@ -45,24 +43,14 @@ const Quiz = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 2,
-  },
-
   card: {
-    margin: 15,
-    textAlign: "center",
+    marginHorizontal: "5%",
     padding: 10,
   },
 
   testBtn: {
-    marginTop: 20,
     padding: "2%",
-    marginBottom: 2,
-    width: "45%",
+    width: "40%",
   },
 });
 

@@ -46,8 +46,8 @@ const Login = ({ navigation, checkUser }) => {
           ref(db, "/coaches/" + userId),
           (snapshot) => {
             if (
-              form.pwd === snapshot.val().pwd &&
-              form.mail === snapshot.val().email
+              form.pwd === snapshot.val().pwd
+              // &&form.mail === snapshot.val().email
             ) {
               storeUser("coach", userId);
               checkUser();
@@ -63,10 +63,8 @@ const Login = ({ navigation, checkUser }) => {
           ref(db, "/users/" + userId),
           (snapshot) => {
             if (snapshot.exists()) {
-              if (
-                form.pwd === snapshot.val().pwd &&
-                form.mail === snapshot.val().email
-              ) {
+              if (form.pwd === snapshot.val().pwd) {
+                // console.log(form.mail + " " + snapshot.val().email);
                 storeUser("user", userId);
                 checkUser();
                 // setAlert("Logged in successfully..");
@@ -122,13 +120,14 @@ const Login = ({ navigation, checkUser }) => {
               secureTextEntry
               onChangeText={(code) => setForm({ ...form, pwd: code })}
             />
-            <View style={{ flexDirection: "row", marginVertical: 10 }}>
+            <View style={{ flexDirection: "row" }}>
               <Text
                 style={{
                   fontSize: 16,
                   color: basic,
                   marginRight: 25,
                   fontWeight: "bold",
+                  marginTop: 15,
                 }}
               >
                 Counsellor

@@ -21,34 +21,36 @@ const MyBookings = () => {
   }, []);
 
   return (
-    <ScrollView style={{ flexGrow: 1 }}>
+    <>
       {bookings ? (
-        Object.keys(bookings).map((elt) => {
-          return (
-            // <ScrollView style={{ flexGrow: 1 }} key={bookings[elt].name}>
-            <List.Item
-              title={"Meet your career counsellor " + bookings[elt].name}
-              key={bookings[elt].name}
-              description={"Booking Date: " + bookings[elt].date}
-              left={(props) => (
-                <List.Icon
-                  {...props}
-                  icon="account-circle"
-                  style={{
-                    backgroundColor: dark,
-                    borderRadius: "50%",
-                  }}
-                  color="white"
-                />
-              )}
-            />
-            // </ScrollView>
-          );
-        })
+        <ScrollView style={{ flexGrow: 1 }}>
+          {Object.keys(bookings).map((elt) => {
+            return (
+              // <ScrollView style={{ flexGrow: 1 }} key={bookings[elt].name}>
+              <List.Item
+                title={"Meet your career counsellor " + bookings[elt].name}
+                key={bookings[elt].name}
+                description={"Booking Date: " + bookings[elt].date}
+                left={(props) => (
+                  <List.Icon
+                    {...props}
+                    icon="account-circle"
+                    style={{
+                      backgroundColor: dark,
+                      // borderRadius: "50%",
+                    }}
+                    color="white"
+                  />
+                )}
+              />
+              //  {/* </ScrollView> */}
+            );
+          })}
+        </ScrollView>
       ) : (
         <Error errorMsg="You haven't booked a session yet." />
       )}
-    </ScrollView>
+    </>
   );
 };
 
