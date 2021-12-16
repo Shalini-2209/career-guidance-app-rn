@@ -14,6 +14,7 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
       eligible: details.eligible,
       slots: details.slots,
       pwd: details.pwd,
+      image: details.image,
       experience: details.experience,
       qualification: details.qualification,
     })
