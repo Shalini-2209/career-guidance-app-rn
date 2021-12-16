@@ -11,6 +11,7 @@ const UpdateForm = ({ setShowForm, details, setDetails }) => {
     set(curRef, {
       cname: details.cname,
       contact: details.contact,
+      email: details.email,
       eligible: details.eligible,
       slots: details.slots,
       pwd: details.pwd,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import Alert from "../../components/Alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, update } from "firebase/database";
 import { Button, Card, Paragraph } from "react-native-paper";
 
 const Coaches = () => {
@@ -43,16 +43,7 @@ const Coaches = () => {
 
     saveMyBooking(selectedCoach);
 
-    set(curRef, {
-      cname: details.cname,
-      contact: details.contact,
-      eligible: details.eligible,
-      slots: details.slots - 1,
-      pwd: details.pwd,
-      image: details.image,
-      experience: details.experience || 0,
-      qualification: details.qualification || "nil",
-    })
+    update(curRef, { slots: details.slots - 1 })
       .then(() => {
         setAlert("Booked successfully!");
       })
