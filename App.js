@@ -1,6 +1,6 @@
 import React from "react";
-import Routes from "./src/navigations/routes";
+import RootStack from "./src/navigations/RootStack";
 
 export default function App() {
-  return <Routes />;
+  return <RootStack />;
 }
