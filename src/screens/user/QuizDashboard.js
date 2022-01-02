@@ -32,7 +32,7 @@ const Quiz = ({ navigation }) => {
             mode="contained"
             style={styles.testBtn}
             color={dark}
-            onPress={() => navigation.navigate("Test")}
+            onPress={() => navigation.push("Test")}
           >
             Start a test
           </Button>

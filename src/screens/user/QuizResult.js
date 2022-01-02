@@ -40,7 +40,7 @@ const QuizResult = ({ route, navigation }) => {
             style={styles.homeBtn}
             color={dark}
             style={{ marginVertical: 5, padding: 3 }}
-            onPress={() => navigation.navigate("Tabs")}
+            onPress={() => navigation.push("Quiz")}
           >
             Home
           </Button>

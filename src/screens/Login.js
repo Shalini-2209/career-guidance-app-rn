@@ -9,12 +9,13 @@ import {
   useTheme,
 } from "react-native-paper";
 import { basic, dark } from "../default/colors";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Alert from "../components/Alert";
 import { getDatabase, ref, onValue } from "firebase/database";
 import database from "../storage/firebase";
+import { GetRoleContext } from "../contexts/RoleProvider";
 
-const Login = ({ navigation, checkUser }) => {
+const Login = ({ navigation }) => {
   const initalState = {
     mail: "",
     pwd: "",
@@ -23,6 +24,8 @@ const Login = ({ navigation, checkUser }) => {
   const [form, setForm] = useState(initalState);
   const [alert, setAlert] = useState("");
   const [coach, setCoach] = useState(false);
+
+  const checkUser = useContext(GetRoleContext);
 
   const { colors } = useTheme();
 
@@ -156,7 +159,7 @@ const Login = ({ navigation, checkUser }) => {
               I m a new user,{" "}
               <Text
                 style={{ fontWeight: "bold", color: "#b33939" }}
-                onPress={() => navigation.navigate("Register")}
+                onPress={() => navigation.push("Register")}
               >
                 Sign up.
               </Text>
